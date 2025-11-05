@@ -61,10 +61,8 @@ app.get("/todos", async (_req: Request, res: Response) => {
       GROUP BY todos.id
       ORDER BY todos.created_at DESC
     `);
-    console.log("Query result:", result);
     res.status(200).json(result.rows);
   } catch (error) {
-    console.error("Error fetching todos:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
@@ -87,7 +85,6 @@ app.post(
       );
       res.status(201).json(result.rows[0]);
     } catch (error) {
-      console.error("Error creating todo:", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
@@ -111,7 +108,6 @@ app.post(
       );
       res.status(201).json(result.rows[0]);
     } catch (error) {
-      console.error("Error creating sub_todo:", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
@@ -125,7 +121,6 @@ app.delete(
       await pool.query("DELETE FROM todos WHERE id = $1", [id]);
       res.status(204).send();
     } catch (error) {
-      console.error("Error deleting todo:", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
@@ -139,14 +134,13 @@ app.delete(
       await pool.query("DELETE FROM sub_todos WHERE id = $1", [id]);
       res.status(204).send();
     } catch (error) {
-      console.error("Error deleting sub_todo:", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
 );
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server running http://localhost:${port}`);
 });
 
 export default app;
