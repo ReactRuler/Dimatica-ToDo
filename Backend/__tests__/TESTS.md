@@ -5,7 +5,7 @@
 ![Supertest](https://img.shields.io/badge/API%20tests-Supertest-blue)
 ![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)
 ![TypeScript](https://img.shields.io/badge/TypeScript-✔%EF%B8%8F-blue)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Express.js](https://img.shields.io/badge/Express.js-%23404d59.svg?logo=express&logoColor=%2361DAFB)
 
 ## ✅ Test Results
 
