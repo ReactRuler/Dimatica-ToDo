@@ -1,11 +1,18 @@
 import express, { type Request, type Response } from "express";
 import { Pool } from "pg";
 import dotenv from "dotenv";
+import cors = require("cors");
 
 dotenv.config();
 
 const app = express();
 const port: number = Number(process.env.PORT) || 3000;
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 const pool = new Pool({
   host: process.env.DB_HOST,
@@ -46,20 +53,24 @@ app.get("/todos", async (_req: Request, res: Response) => {
         todos.created_at,
         todos.updated_at,
         COALESCE(
-          json_agg(
-            json_build_object(
-              'id', sub_todos.id,
-              'sub_task_description', sub_todos.sub_task_description,
-              'completed', sub_todos.completed,
-              'created_at', sub_todos.created_at,
-              'updated_at', sub_todos.updated_at
-            )
-          ) FILTER (WHERE sub_todos.id IS NOT NULL), '[]'
+          (
+            SELECT json_agg(sub_todo_obj ORDER BY sub_todo_obj->>'id')
+            FROM (
+              SELECT json_build_object(
+                'id', sub_todos.id,
+                'sub_task_description', sub_todos.sub_task_description,
+                'completed', sub_todos.completed,
+                'created_at', sub_todos.created_at,
+                'updated_at', sub_todos.updated_at
+              ) AS sub_todo_obj
+              FROM sub_todos
+              WHERE sub_todos.todo_id = todos.id
+              ORDER BY sub_todos.id ASC
+            ) sub
+          ), '[]'
         ) AS sub_todos
       FROM todos
-      LEFT JOIN sub_todos ON todos.id = sub_todos.todo_id
-      GROUP BY todos.id
-      ORDER BY todos.created_at DESC
+      ORDER BY todos.id ASC
     `);
     res.status(200).json(result.rows);
   } catch (error) {
@@ -174,11 +185,11 @@ app.put(
     res: Response
   ) => {
     const { id } = req.params;
-    const { sub_task_desciption, completed } = req.body;
+    const { sub_task_description, completed } = req.body;
     try {
       await pool.query(
         "UPDATE sub_todos SET sub_task_description = $1, completed = $2, updated_at = NOW() WHERE id = $3",
-        [sub_task_desciption, completed, id]
+        [sub_task_description, completed, id]
       );
       res.status(200).json({ message: "SubTodo updated successfully" });
     } catch (error) {
