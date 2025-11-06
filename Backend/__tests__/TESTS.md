@@ -1,3 +1,12 @@
+# Todo Task Backend
+
+![Tests](https://img.shields.io/badge/tests-10%2F10%20passing-brightgreen)
+![Jest](https://img.shields.io/badge/tested%20with-Jest-red)
+![Supertest](https://img.shields.io/badge/API%20tests-Supertest-blue)
+![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)
+![TypeScript](https://img.shields.io/badge/TypeScript-✔%EF%B8%8F-blue)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
+
 ## ✅ Test Results
 
 ```bash
