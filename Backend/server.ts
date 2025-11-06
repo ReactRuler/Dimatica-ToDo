@@ -142,12 +142,11 @@ app.delete(
 app.put(
   "/todos/:id",
   async (
-    req: Request<{
-      id: string;
-      title?: string;
-      description?: string;
-      completed?: boolean;
-    }>,
+    req: Request<
+      { id: string },
+      {},
+      { title?: string; description?: string; completed?: boolean }
+    >,
     res: Response
   ) => {
     const { id } = req.params;
@@ -167,11 +166,11 @@ app.put(
 app.put(
   "/sub_todos/:id",
   async (
-    req: Request<{
-      id: number;
-      sub_task_desciption?: string;
-      completed?: boolean;
-    }>,
+    req: Request<
+      { id: string },
+      {},
+      { sub_task_desciption?: string; completed?: boolean }
+    >,
     res: Response
   ) => {
     const { id } = req.params;
