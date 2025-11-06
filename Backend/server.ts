@@ -139,6 +139,55 @@ app.delete(
   }
 );
 
+app.put(
+  "/todos/:id",
+  async (
+    req: Request<{
+      id: string;
+      title?: string;
+      description?: string;
+      completed?: boolean;
+    }>,
+    res: Response
+  ) => {
+    const { id } = req.params;
+    const { title, description, completed } = req.body;
+    try {
+      await pool.query(
+        "UPDATE todos SET title = $1, description = $2, completed = $3, updated_at = NOW() WHERE id = $4",
+        [title, description, completed, id]
+      );
+      res.status(200).json({ message: "Todo updated successfully" });
+    } catch (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+);
+
+app.put(
+  "/sub_todos/:id",
+  async (
+    req: Request<{
+      id: number;
+      sub_task_desciption?: string;
+      completed?: boolean;
+    }>,
+    res: Response
+  ) => {
+    const { id } = req.params;
+    const { sub_task_desciption, completed } = req.body;
+    try {
+      await pool.query(
+        "UPDATE sub_todos SET sub_task_description = $1, completed = $2, updated_at = NOW() WHERE id = $3",
+        [sub_task_desciption, completed, id]
+      );
+      res.status(200).json({ message: "SubTodo updated successfully" });
+    } catch (error) {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+);
+
 app.listen(port, () => {
   console.log(`Server running http://localhost:${port}`);
 });
