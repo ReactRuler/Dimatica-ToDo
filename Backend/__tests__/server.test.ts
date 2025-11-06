@@ -4,7 +4,6 @@ import request from "supertest";
 import { Pool } from "pg";
 import app from "../server";
 
-// Mock pg module
 jest.mock("pg", () => {
   const mPool = {
     query: jest.fn(),
@@ -14,7 +13,6 @@ jest.mock("pg", () => {
   return { Pool: jest.fn(() => mPool) };
 });
 
-// Get the mocked pool instance
 let mockPool: jest.Mocked<Pool>;
 
 describe("Todo API Tests", () => {
