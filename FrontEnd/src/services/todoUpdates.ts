@@ -1,4 +1,4 @@
-export async function updateTodoCompletion(
+export async function updateTodoData(
   id: number,
   title: string,
   description: string,
@@ -23,7 +23,7 @@ export async function updateTodoCompletion(
   }
 }
 
-export async function updateSubTodoCompletion(
+export async function updateSubTodoData(
   id: number,
   sub_task_description: string,
   completed: boolean
