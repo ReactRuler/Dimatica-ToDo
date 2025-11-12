@@ -24,6 +24,7 @@ export default function SubList({
     sub_task_description: string,
     completed: boolean
   ) => Promise<void>;
+  onDeleteSubTodo: (id: number) => void;
 }) {
   if (!sub_todos?.length) return null;
 
@@ -36,7 +37,7 @@ export default function SubList({
     sub_task_description: string;
     completed: boolean;
   }) => {
-    const [editedTask, setEditedTask] = useState(sub_task_description);
+    const [editedTask, setEditedTask] = useState<string>(sub_task_description);
 
     return (
       <div className="flex flex-col gap-5 w-[450px]">
@@ -44,12 +45,14 @@ export default function SubList({
           count={{
             show: true,
             max: 25,
-            strategy: (txt) => runes(txt).length,
-            exceedFormatter: (txt, { max }) =>
+            strategy: (txt: string) => runes(txt).length,
+            exceedFormatter: (txt: string, { max }: { max: number }) =>
               runes(txt).slice(0, max).join(""),
           }}
           value={editedTask}
-          onChange={(e) => setEditedTask(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEditedTask(e.target.value)
+          }
           placeholder="🫧 Buy soap"
         />
         <Button

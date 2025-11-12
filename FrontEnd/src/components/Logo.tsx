@@ -1,5 +1,4 @@
 import LogoImg from "../assets/Dimatica-logo.webp";
-import { Link } from "react-router-dom";
 
 function Logo() {
   return (

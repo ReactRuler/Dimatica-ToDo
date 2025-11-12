@@ -6,6 +6,7 @@ import {
   DeleteOutlined,
   EditOutlined,
   PlusCircleOutlined,
+  ReloadOutlined,
   SaveOutlined,
 } from "@ant-design/icons";
 import SubList from "./SubList";
@@ -131,8 +132,9 @@ function MainList() {
     description: string;
     completed: boolean;
   }) => {
-    const [editedTitle, setEditedTitle] = useState(title);
-    const [editedDescription, setEditedDescription] = useState(description);
+    const [editedTitle, setEditedTitle] = useState<string>(title);
+    const [editedDescription, setEditedDescription] =
+      useState<string>(description);
 
     return (
       <div className="flex flex-col gap-5 w-[450px]">
@@ -140,25 +142,29 @@ function MainList() {
           count={{
             show: true,
             max: 25,
-            strategy: (txt) => runes(txt).length,
-            exceedFormatter: (txt, { max }) =>
+            strategy: (txt: string) => runes(txt).length,
+            exceedFormatter: (txt: string, { max }: { max: number }) =>
               runes(txt).slice(0, max).join(""),
           }}
           value={editedTitle}
-          onChange={(e) => setEditedTitle(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEditedTitle(e.target.value)
+          }
           placeholder="🕐 What's on your mind?"
         />
         <Input
           count={{
             show: true,
             max: 50,
-            strategy: (txt) => runes(txt).length,
-            exceedFormatter: (txt, { max }) =>
+            strategy: (txt: string) => runes(txt).length,
+            exceedFormatter: (txt: string, { max }: { max: number }) =>
               runes(txt).slice(0, max).join(""),
           }}
           value={editedDescription}
           placeholder="🧽 Describe your task 📚"
-          onChange={(e) => setEditedDescription(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEditedDescription(e.target.value)
+          }
         />
         <Button
           onClick={() =>
@@ -174,8 +180,8 @@ function MainList() {
   };
 
   const popOverCreateTodo = () => {
-    const [editedTitle, setEditedTitle] = useState("");
-    const [editedDescription, setEditedDescription] = useState("");
+    const [editedTitle, setEditedTitle] = useState<string>("");
+    const [editedDescription, setEditedDescription] = useState<string>("");
 
     return (
       <div className="flex flex-col gap-5 w-[450px]">
@@ -183,25 +189,29 @@ function MainList() {
           count={{
             show: true,
             max: 25,
-            strategy: (txt) => runes(txt).length,
-            exceedFormatter: (txt, { max }) =>
+            strategy: (txt: string) => runes(txt).length,
+            exceedFormatter: (txt: string, { max }: { max: number }) =>
               runes(txt).slice(0, max).join(""),
           }}
           value={editedTitle}
-          onChange={(e) => setEditedTitle(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEditedTitle(e.target.value)
+          }
           placeholder="🕐 What's on your mind?"
         />
         <Input
           count={{
             show: true,
             max: 50,
-            strategy: (txt) => runes(txt).length,
-            exceedFormatter: (txt, { max }) =>
+            strategy: (txt: string) => runes(txt).length,
+            exceedFormatter: (txt: string, { max }: { max: number }) =>
               runes(txt).slice(0, max).join(""),
           }}
           value={editedDescription}
           placeholder="🧽 Describe your task 📚"
-          onChange={(e) => setEditedDescription(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEditedDescription(e.target.value)
+          }
         />
         <Button
           onClick={() => createTodo(editedTitle, editedDescription)}
@@ -215,7 +225,7 @@ function MainList() {
   };
 
   const popOverCreateSubTodo = ({ todo_id }: { todo_id: number }) => {
-    const [editedSubTask, setEditedSubTask] = useState("");
+    const [editedSubTask, setEditedSubTask] = useState<string>("");
     const todoId = todo_id;
 
     return (
@@ -224,13 +234,15 @@ function MainList() {
           count={{
             show: true,
             max: 30,
-            strategy: (txt) => runes(txt).length,
-            exceedFormatter: (txt, { max }) =>
+            strategy: (txt: string) => runes(txt).length,
+            exceedFormatter: (txt: string, { max }: { max: number }) =>
               runes(txt).slice(0, max).join(""),
           }}
           value={editedSubTask}
           placeholder="🧽 Describe your sub task 📚"
-          onChange={(e) => setEditedSubTask(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEditedSubTask(e.target.value)
+          }
         />
         <Button
           onClick={() => addSubTask(todoId, editedSubTask)}
@@ -259,15 +271,19 @@ function MainList() {
 
   return (
     <div className="w-full">
-      <Popover
-        content={() => popOverCreateTodo()}
-        title="Create Todo"
-        trigger="click"
-      >
-        <Button>
-          Create <PlusCircleOutlined />
-        </Button>
-      </Popover>
+      <div className="flex justify-between mb-4">
+        <Popover
+          content={() => popOverCreateTodo()}
+          title="Create Todo"
+          trigger="click"
+        >
+          <Button>
+            Create <PlusCircleOutlined />
+          </Button>
+        </Popover>
+
+        <Button onClick={() => loadTodos()} icon={<ReloadOutlined />}></Button>
+      </div>
       <List
         size="large"
         bordered

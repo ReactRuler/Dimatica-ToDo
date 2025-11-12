@@ -1,73 +1,98 @@
-# React + TypeScript + Vite
+# Todo Task Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-18%2B-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-✔%EF%B8%8F-blue)
+![Ant Design](https://img.shields.io/badge/Ant%20Design-%23408eea.svg?logo=ant-design&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Overview
 
-## React Compiler
+This is the frontend application for the Todo Task project. It is built with React and TypeScript, using Ant Design for UI components. The app allows users to create, update, delete, and manage todos and their subtasks, communicating with a backend API.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Display a list of todos with titles, descriptions, and completion status.
+- Create new todos and subtasks via intuitive popover forms.
+- Edit existing todos inline with live updates.
+- Toggle completion status for todos and subtasks.
+- Delete todos and subtasks.
+- Responsive UI with Ant Design components and icons.
+- Unicode-safe input handling using `runes2`.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Component Structure
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### MainList
+
+- Manages state for todos and loading status.
+- Fetches todos from backend API.
+- Handles CRUD operations for todos and subtasks.
+- Renders UI with Ant Design components:
+  - `List`, `Switch`, `Collapse`, `Input`, `Popover`, `Button`
+- Uses `SubList` component to render subtasks.
+
+### SubList
+
+- Renders subtasks for a given todo.
+- Supports toggling completion and deleting subtasks.
+
+---
+
+## Backend API Endpoints Used
+
+- `GET /todos` - Fetch all todos with subtasks.
+- `POST /todos` - Create a new todo.
+- `PUT /todos/:id` - Update a todo.
+- `DELETE /todos/:id` - Delete a todo.
+- `POST /sub_todos` - Create a new subtask.
+- `PUT /sub_todos/:id` - Update a subtask.
+- `DELETE /sub_todos/:id` - Delete a subtask.
+
+---
+
+## Installation & Running
+
+1. Clone the repository.
+
+2. Install dependencies:
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Start the development server:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+   ```bash
+   npm run dev
+   ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+4. The app will be available at `http://localhost:3000` (or your configured port).
+
+---
+
+## Testing
+
+- Tests are written using Jest and React Testing Library.
+
+- To run tests:
+
+  ```bash
+  npm test
+  ```
+
+## Dependencies
+
+- React 18+
+- TypeScript
+- Ant Design
+- runes2 (for Unicode-safe string operations)
+- Jest & React Testing Library (for testing)
+
+---
+
+If you need documentation for other components or help with setup, just ask!
