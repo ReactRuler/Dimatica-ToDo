@@ -15,7 +15,15 @@
 
 ## Project Summary
 
-The **Todo Task** project is a full-stack application designed to manage todos and their subtasks efficiently. It consists of a **React + TypeScript frontend** and an **Express.js + TypeScript backend** with a **PostgreSQL** database. The project is developed and tested on **Ubuntu** OS.
+A full-stack Todo Task application with React + TypeScript frontend and Express.js + TypeScript backend, using PostgreSQL for data persistence. Developed and tested on Ubuntu OS with comprehensive testing coverage.
+
+---
+
+## Showcase Video
+
+[![Todo Task Project Demo](https://img.youtube.com/vi/8d8hndwkkgA/0.jpg)](https://youtu.be/8d8hndwkkgA)
+
+Click the image above to watch the project demo video.
 
 ---
 
