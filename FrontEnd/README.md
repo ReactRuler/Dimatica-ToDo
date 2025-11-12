@@ -92,7 +92,3 @@ npm install
 - Ant Design
 - runes2 (for Unicode-safe string operations)
 - Jest & React Testing Library (for testing)
-
----
-
-If you need documentation for other components or help with setup, just ask!
